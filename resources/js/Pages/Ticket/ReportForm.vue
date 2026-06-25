@@ -43,7 +43,7 @@ function submit() {
         <div class="max-w-3xl mx-auto space-y-7">
             <Link
                 :href="route('tickets.show', ticket.id)"
-                class="inline-flex items-center gap-2 text-[#7d95b6] hover:text-[#dcefff] text-[13px] font-medium transition-colors duration-200"
+                class="inline-flex items-center gap-2 text-muted hover:text-main text-[13px] font-medium transition-colors duration-200"
             >
                 <svg class="w-[15px] h-[15px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
                 &larr; retour ticket
@@ -53,9 +53,9 @@ function submit() {
                 <div class="text-[10px] uppercase tracking-[0.2em] text-[#6bcbff] font-semibold mb-2 font-['Space_Grotesk']">RAPPORT D'INTERVENTION</div>
                 <div class="flex flex-wrap items-center gap-3 mb-1">
                     <span class="mono text-[13px] text-[#69b9ff] font-semibold tracking-wider">{{ ticket.ref }}</span>
-                    <span class="text-[15px] font-semibold text-[#dcefff]">{{ ticket.titre }}</span>
+                    <span class="text-[15px] font-semibold text-main">{{ ticket.titre }}</span>
                 </div>
-                <p class="text-[12px] text-[#7d95b6]">Client : {{ ticket.client?.name }} &bull; Technicien : {{ ticket.technicien?.name || 'Non assigné' }}</p>
+                <p class="text-[12px] text-muted">Client : {{ ticket.client?.name }} &bull; Technicien : {{ ticket.technicien?.name || 'Non assigné' }}</p>
             </div>
 
             <form @submit.prevent="submit" class="cyber-card rounded-[20px] p-6 space-y-6">
@@ -69,7 +69,7 @@ function submit() {
                         placeholder="Décrivez en détail les travaux réalisés (minimum 20 caractères)..."
                     ></textarea>
                     <p v-if="errors.travaux" class="text-[#ff5c7a] text-[12px] mt-1.5">{{ errors.travaux }}</p>
-                    <p class="text-[11px] text-[#556e8c] mt-1.5">{{ (form.travaux || '').length }} / min 20 caractères</p>
+                    <p class="text-[11px] text-muted mt-1.5">{{ (form.travaux || '').length }} / min 20 caractères</p>
                 </div>
 
                 <div>
@@ -83,7 +83,7 @@ function submit() {
                                 class="field w-[70px] text-center"
                                 placeholder="0"
                             />
-                            <span class="text-[12px] text-[#a7bed8] font-medium">h</span>
+                            <span class="text-[12px] text-sub font-medium">h</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <input
@@ -94,7 +94,7 @@ function submit() {
                                 class="field w-[70px] text-center"
                                 placeholder="0"
                             />
-                            <span class="text-[12px] text-[#a7bed8] font-medium">min</span>
+                            <span class="text-[12px] text-sub font-medium">min</span>
                         </div>
                     </div>
                     <p v-if="errors.duree_heures" class="text-[#ff5c7a] text-[12px] mt-1.5">{{ errors.duree_heures }}</p>
@@ -138,10 +138,10 @@ function submit() {
                     <p v-if="errors.recommandations" class="text-[#ff5c7a] text-[12px] mt-1.5">{{ errors.recommandations }}</p>
                 </div>
 
-                <div class="flex flex-wrap items-center justify-end gap-3 pt-3 border-t border-[#1c3b5b]">
+                <div class="flex flex-wrap items-center justify-end gap-3 pt-3 border-t border-subtle">
                     <Link
                         :href="route('tickets.show', ticket.id)"
-                        class="rounded-xl border border-[#1d3658] bg-transparent text-[#a7bed8] px-5 py-[10px] text-[13px] font-semibold hover:border-[#3d6392] hover:text-[#dde7f6] transition-colors duration-200"
+                        class="rounded-xl border border-subtle bg-transparent text-sub px-5 py-[10px] text-[13px] font-semibold hover:border-[#3d6392] hover:text-main transition-colors duration-200"
                     >
                         Annuler
                     </Link>

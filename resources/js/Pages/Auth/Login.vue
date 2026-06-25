@@ -26,11 +26,11 @@ const submit = () => {
                     ATECH PORTAL ACCESS
                 </p>
 
-                <h1 class="section-title text-[26px] text-[#dcefff] leading-tight mb-1">
+                <h1 class="section-title text-[26px] text-main leading-tight mb-1">
                     Bienvenue dans votre espace
                 </h1>
 
-                <p class="text-sm text-[#90aac8] mb-7">
+                <p class="text-sm text-sub mb-7">
                     Connectez-vous pour accéder à la plateforme de gestion des interventions.
                 </p>
 
@@ -70,8 +70,8 @@ const submit = () => {
                                 type="button"
                                 class="rounded-xl border py-2.5 text-[13px] font-semibold transition-all duration-200"
                                 :class="form.role === role
-                                    ? 'border-[#43c9ff] bg-[#0f2b45] text-[#b8eaff]'
-                                    : 'border-[#1f3b59] text-[#7f9ebc] bg-transparent hover:border-[#22425e]'"
+                                    ? 'border-[#43c9ff] bg-[#0f2b45] text-main'
+                                    : 'border-subtle text-muted bg-transparent hover:border-subtle'"
                                 @click="form.role = role"
                             >
                                 {{ role }}
@@ -94,26 +94,26 @@ const submit = () => {
                     </button>
                 </form>
 
-                <p class="mt-5 text-center text-sm text-[#7f9ebc]">
+                <p class="mt-5 text-center text-sm text-muted">
                     Pas encore de compte ?
                     <Link :href="route('register')" class="text-[#43c9ff] hover:underline font-semibold">
                         Créer un compte
                     </Link>
                 </p>
 
-                <div class="mt-7 pt-5 border-t border-[#1c3b5b]">
-                    <p class="text-[11px] mono text-[#556e8c] uppercase tracking-wider mb-3">Comptes de démonstration</p>
-                    <div class="space-y-2 mono text-xs text-[#7f9ebc]">
+                <div class="mt-7 pt-5 border-t border-subtle">
+                    <p class="text-[11px] mono text-muted uppercase tracking-wider mb-3">Comptes de démonstration</p>
+                    <div class="space-y-2 mono text-xs text-muted">
                         <div class="flex justify-between">
-                            <span class="text-[#90aac8]">Client</span>
+                            <span class="text-sub">Client</span>
                             <span>lea.morel@client.fr / client123</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-[#90aac8]">Technicien</span>
+                            <span class="text-sub">Technicien</span>
                             <span>tech@atech.fr / technicien123</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-[#90aac8]">Admin</span>
+                            <span class="text-sub">Admin</span>
                             <span>admin@atech.fr / admin123</span>
                         </div>
                     </div>

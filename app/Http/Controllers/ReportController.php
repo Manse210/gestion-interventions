@@ -6,6 +6,7 @@ use App\Models\Report;
 use App\Models\Ticket;
 use App\Models\TicketHistory;
 use App\Models\AppNotification;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -42,5 +43,21 @@ class ReportController extends Controller
 
         return redirect()->route('tickets.show', $ticket->id)
             ->with('success', 'Rapport soumis avec succès.');
+    }
+
+    public function download(Ticket $ticket)
+    {
+        $report = $ticket->report;
+        if (!$report) {
+            return back()->with('error', 'Aucun rapport pour ce ticket.');
+        }
+
+        $ticket->load('client', 'technicien');
+        $pdf = Pdf::loadView('reports.pdf', [
+            'ticket' => $ticket,
+            'report' => $report,
+        ]);
+
+        return $pdf->download("Rapport_{$ticket->ref}.pdf");
     }
 }

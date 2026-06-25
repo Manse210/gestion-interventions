@@ -15,7 +15,7 @@ class AdminController extends Controller
     public function tickets()
     {
         return Inertia::render('Admin/Tickets', [
-            'tickets' => Ticket::with('client', 'technicien')->latest()->get(),
+            'tickets' => Ticket::with('client', 'technicien', 'history.user')->latest()->get(),
             'techniciens' => User::where('role', 'technicien')->where('actif', true)->get(),
         ]);
     }

@@ -61,6 +61,10 @@ class TicketController extends Controller
             'categorie' => 'required|in:Reseau,Logiciel,Materiel,Electrique,Autre',
         ]);
 
+        if ($request->hasFile('piece_jointe')) {
+            $data['piece_jointe'] = $request->file('piece_jointe')->store('uploads', 'public');
+        }
+
         $count = Ticket::count();
         $data['ref'] = 'TK-' . str_pad($count + 1, 3, '0', STR_PAD_LEFT);
         $data['client_id'] = $request->user()->id;
@@ -120,7 +124,7 @@ class TicketController extends Controller
 
     public function updateStatus(Request $request, Ticket $ticket)
     {
-        $data = $request->validate(['statut' => 'required|in:Ouvert,En cours,Rapport en rédaction,Resolu,Ferme']);
+        $data = $request->validate(['statut' => 'required|in:Ouvert,En cours,Rapport en rédaction,Résolu,Fermé']);
 
         $ticket->update($data);
 

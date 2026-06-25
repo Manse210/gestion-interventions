@@ -70,13 +70,13 @@ const priorityBadgeClass = (priority) => ({
             <div>
                 <Link
                     :href="route('tickets.index')"
-                    class="inline-flex items-center gap-2 text-[#7d95b6] hover:text-[#dcefff] text-[13px] font-medium transition-colors duration-200 mb-4"
+                    class="inline-flex items-center gap-2 text-muted hover:text-main text-[13px] font-medium transition-colors duration-200 mb-4"
                 >
                     <svg class="w-[15px] h-[15px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
                     Retour aux tickets
                 </Link>
                 <div class="text-[11px] uppercase tracking-[0.2em] text-[#66b8ff] font-semibold mb-1.5">Nouveau ticket</div>
-                <h2 class="section-title text-[26px] text-[#dcefff] leading-tight">Ouvrir une intervention ATECH</h2>
+                <h2 class="section-title text-[26px] text-main leading-tight">Ouvrir une intervention ATECH</h2>
             </div>
 
             <form @submit.prevent="submit" class="cyber-card rounded-[20px] p-6 space-y-6">
@@ -130,7 +130,7 @@ const priorityBadgeClass = (priority) => ({
                     </div>
 
                     <div class="md:col-span-2">
-                        <label class="label">Pièce jointe <span class="text-[#556e8c] font-normal">(facultatif)</span></label>
+                        <label class="label">Pièce jointe <span class="text-muted font-normal">(facultatif)</span></label>
                         <div class="relative">
                             <input
                                 type="file"
@@ -138,15 +138,15 @@ const priorityBadgeClass = (priority) => ({
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                             />
                             <div class="field w-full flex items-center gap-3 cursor-pointer">
-                                <svg class="w-[17px] h-[17px] text-[#556e8c] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" /></svg>
-                                <span class="text-[13px] text-[#556e8c] truncate">{{ pieceJointeName || 'Cliquez pour sélectionner un fichier (PDF, image, ZIP...)' }}</span>
+                                <svg class="w-[17px] h-[17px] text-muted shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" /></svg>
+                                <span class="text-[13px] text-muted truncate">{{ pieceJointeName || 'Cliquez pour sélectionner un fichier (PDF, image, ZIP...)' }}</span>
                             </div>
                         </div>
                         <p v-if="errors.piece_jointe" class="text-[#ff5c7a] text-[12px] mt-1.5">{{ errors.piece_jointe }}</p>
                     </div>
                 </div>
 
-                <div class="flex items-center gap-4 pt-2 border-t border-[#1c3b5b]">
+                <div class="flex items-center gap-4 pt-2 border-t border-subtle">
                     <button
                         type="submit"
                         :disabled="!canSubmit || processing"
@@ -158,7 +158,7 @@ const priorityBadgeClass = (priority) => ({
                     </button>
                     <Link
                         :href="route('tickets.index')"
-                        class="text-[13px] text-[#7d95b6] hover:text-[#dcefff] font-medium transition-colors duration-200"
+                        class="text-[13px] text-muted hover:text-main font-medium transition-colors duration-200"
                     >
                         Annuler
                     </Link>

@@ -219,7 +219,9 @@
 
   .bg-body    { background: var(--bg); }
   .bg-sidebar { background: var(--sidebar-bg); }
+  .bg-card    { background: var(--card-bg); }
   .text-main  { color: var(--text-primary); }
+  .text-sub   { color: var(--text-secondary); }
   .text-muted { color: var(--text-tertiary); }
   .border-subtle { border-color: var(--border); }
   .bg-input   { background: var(--input-bg); }

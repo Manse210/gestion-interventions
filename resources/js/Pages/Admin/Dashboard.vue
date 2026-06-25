@@ -115,12 +115,12 @@ function fmtDate(d) {
             <div class="flex items-center justify-between flex-wrap gap-3">
                 <div>
                     <div class="text-[10px] uppercase tracking-[0.2em] text-[#FF9800] font-semibold mb-2 section-title">ADMIN &bull; SOC SUPERVISION</div>
-                    <h2 class="section-title text-[28px] text-[#dde7f6]">Vue d'ensemble ATECH</h2>
+                    <h2 class="section-title text-[28px] text-main">Vue d'ensemble ATECH</h2>
                 </div>
                 <div class="flex gap-2">
                     <button v-for="p in periods" :key="p" @click="changePeriod(p)"
                         class="rounded-xl px-4 py-[7px] text-[13px] font-semibold transition-colors border"
-                        :class="period === p ? 'bg-[#0b3b6c] text-[#e4f8ff] border-[#2b8ed3]' : 'bg-transparent text-[#7f9dbc] border-[#1d3658] hover:border-[#2b8ed3]'">
+                        :class="period === p ? 'bg-[#0b3b6c] text-[#e4f8ff] border-[#2b8ed3]' : 'bg-transparent text-muted border-subtle hover:border-[#2b8ed3]'">
                         {{ p }}
                     </button>
                 </div>
@@ -128,72 +128,72 @@ function fmtDate(d) {
 
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                 <div v-for="kpi in kpiCards" :key="kpi.label" class="cyber-card rounded-[20px] p-5 flex flex-col gap-2">
-                    <span class="text-[11px] text-[#7f9dbc] uppercase tracking-wider font-semibold">{{ kpi.label }}</span>
+                    <span class="text-[11px] text-muted uppercase tracking-wider font-semibold">{{ kpi.label }}</span>
                     <span class="text-[28px] section-title font-800 leading-none" :style="{ color: kpi.color }">{{ kpi.value }}</span>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="cyber-card rounded-[20px] p-6 lg:col-span-2">
-                    <h4 class="section-title text-[16px] text-[#dde7f6] mb-5">Tickets par catégorie</h4>
+                    <h4 class="section-title text-[16px] text-main mb-5">Tickets par catégorie</h4>
                     <Bar v-if="catData.labels.length" :data="catData" :options="chartOpts" />
-                    <p v-else class="text-[14px] text-[#556e8c] py-8 text-center">Aucune donnée.</p>
+                    <p v-else class="text-[14px] text-muted py-8 text-center">Aucune donnée.</p>
                 </div>
                 <div class="cyber-card rounded-[20px] p-6">
-                    <h4 class="section-title text-[16px] text-[#dde7f6] mb-5">Répartition priorités</h4>
+                    <h4 class="section-title text-[16px] text-main mb-5">Répartition priorités</h4>
                     <Doughnut v-if="priData.labels.length" :data="priData" :options="donutOpts" />
-                    <p v-else class="text-[14px] text-[#556e8c] py-8 text-center">Aucune donnée.</p>
+                    <p v-else class="text-[14px] text-muted py-8 text-center">Aucune donnée.</p>
                 </div>
             </div>
 
             <div class="cyber-card rounded-[20px] p-6">
-                <h4 class="section-title text-[16px] text-[#dde7f6] mb-5">Évolution — {{ period }}</h4>
+                <h4 class="section-title text-[16px] text-main mb-5">Évolution — {{ period }}</h4>
                 <Line :data="lineData" :options="chartOpts" />
             </div>
 
             <div class="cyber-card rounded-[20px] overflow-hidden">
-                <div class="px-6 py-4 border-b border-[#1c3b5b]"><h4 class="section-title text-[16px] text-[#dde7f6]">Tickets récents</h4></div>
+                <div class="px-6 py-4 border-b border-subtle"><h4 class="section-title text-[16px] text-main">Tickets récents</h4></div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-[13px]">
-                        <thead><tr class="border-b border-[#1c3b5b] bg-[#0d1e31] text-[11px] uppercase tracking-wider text-[#7f9dbc] font-semibold">
+                        <thead><tr class="border-b border-subtle bg-[#0d1e31] text-[11px] uppercase tracking-wider text-muted font-semibold">
                             <th class="px-5 py-3 text-left">Réf</th><th class="px-5 py-3 text-left">Titre</th><th class="px-5 py-3 text-left">Client</th><th class="px-5 py-3 text-left">Technicien</th><th class="px-5 py-3 text-left">Statut</th><th class="px-5 py-3 text-left">Priorité</th><th class="px-5 py-3 text-left">Date</th>
                         </tr></thead>
                         <tbody>
-                            <tr v-for="t in ticketsRecents" :key="t.id" @click="router.get(route('tickets.show', t.id))" class="border-t border-[#1c3b5b] cursor-pointer hover:bg-[#0f2438] transition-colors text-[#dde7f6]">
+                            <tr v-for="t in ticketsRecents" :key="t.id" @click="router.get(route('tickets.show', t.id))" class="border-t border-subtle cursor-pointer hover:bg-[#0f2438] transition-colors text-main">
                                 <td class="px-5 py-3.5 mono text-[12px] text-[#69b9ff] font-semibold">{{ t.ref }}</td>
                                 <td class="px-5 py-3.5 font-medium">{{ t.titre }}</td>
-                                <td class="px-5 py-3.5 text-[#a7bed8]">{{ t.client?.name || '—' }}</td>
-                                <td class="px-5 py-3.5 text-[#a7bed8]">{{ t.technicien?.name || '—' }}</td>
+                                <td class="px-5 py-3.5 text-sub">{{ t.client?.name || '—' }}</td>
+                                <td class="px-5 py-3.5 text-sub">{{ t.technicien?.name || '—' }}</td>
                                 <td class="px-5 py-3.5"><span :class="statusBadgeClass(t.statut)">{{ t.statut }}</span></td>
                                 <td class="px-5 py-3.5"><span :class="priorityBadgeClass(t.priorite)">{{ t.priorite }}</span></td>
-                                <td class="px-5 py-3.5 text-[#556e8c] text-[12px] whitespace-nowrap">{{ fmtDate(t.created_at) }}</td>
+                                <td class="px-5 py-3.5 text-muted text-[12px] whitespace-nowrap">{{ fmtDate(t.created_at) }}</td>
                             </tr>
-                            <tr v-if="ticketsRecents.length===0"><td colspan="7" class="px-5 py-12 text-center text-[#556e8c]">Aucun ticket récent.</td></tr>
+                            <tr v-if="ticketsRecents.length===0"><td colspan="7" class="px-5 py-12 text-center text-muted">Aucun ticket récent.</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
             <div class="cyber-card rounded-[20px] overflow-hidden">
-                <div class="px-6 py-4 border-b border-[#1c3b5b]"><h4 class="section-title text-[16px] text-[#dde7f6]">Performance techniciens</h4></div>
+                <div class="px-6 py-4 border-b border-subtle"><h4 class="section-title text-[16px] text-main">Performance techniciens</h4></div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-[13px]">
-                        <thead><tr class="border-b border-[#1c3b5b] bg-[#0d1e31] text-[11px] uppercase tracking-wider text-[#7f9dbc] font-semibold">
+                        <thead><tr class="border-b border-subtle bg-[#0d1e31] text-[11px] uppercase tracking-wider text-muted font-semibold">
                             <th class="px-5 py-3 text-left">Technicien</th><th class="px-5 py-3 text-left">Spécialité</th><th class="px-5 py-3 text-left">Traités</th><th class="px-5 py-3 text-left">Note</th><th class="px-5 py-3 text-left">Charge</th>
                         </tr></thead>
                         <tbody>
-                            <tr v-for="t in performanceTechniciens" :key="t.id" class="border-t border-[#1c3b5b] hover:bg-[#0f2438] text-[#dde7f6]">
+                            <tr v-for="t in performanceTechniciens" :key="t.id" class="border-t border-subtle hover:bg-[#0f2438] text-main">
                                 <td class="px-5 py-3.5 font-semibold">{{ t.name }}</td>
-                                <td class="px-5 py-3.5 text-[#a7bed8]">{{ t.specialite || '—' }}</td>
+                                <td class="px-5 py-3.5 text-sub">{{ t.specialite || '—' }}</td>
                                 <td class="px-5 py-3.5 font-medium">{{ t.total || t.tickets_count || 0 }}</td>
                                 <td class="px-5 py-3.5">
                                     <span class="text-[#ffcc3a]">{{ '★'.repeat(starsFor(t.moyenne || 0)) }}</span>
                                     <span class="text-[#2a3a55]">{{ '★'.repeat(5 - starsFor(t.moyenne || 0)) }}</span>
-                                    <span class="ml-1 text-[12px] text-[#a7bed8]">{{ parseFloat(t.moyenne || 0).toFixed(1) }}</span>
+                                    <span class="ml-1 text-[12px] text-sub">{{ parseFloat(t.moyenne || 0).toFixed(1) }}</span>
                                 </td>
-                                <td class="px-5 py-3.5 text-[#a7bed8]">{{ t.total || t.tickets_count || 0 }} ticket{{ (t.total || t.tickets_count || 0) > 1 ? 's' : '' }}</td>
+                                <td class="px-5 py-3.5 text-sub">{{ t.total || t.tickets_count || 0 }} ticket{{ (t.total || t.tickets_count || 0) > 1 ? 's' : '' }}</td>
                             </tr>
-                            <tr v-if="performanceTechniciens.length===0"><td colspan="5" class="px-5 py-12 text-center text-[#556e8c]">Aucune donnée.</td></tr>
+                            <tr v-if="performanceTechniciens.length===0"><td colspan="5" class="px-5 py-12 text-center text-muted">Aucune donnée.</td></tr>
                         </tbody>
                     </table>
                 </div>

@@ -7,7 +7,9 @@ const showingNav = ref(false)
 const showingUserMenu = ref(false)
 const notifCount = ref(0)
 const userMenuRef = ref(null)
-const searchQuery = ref('')
+const notifRef = ref(null)
+const showNotif = ref(false)
+const notifList = ref([])
 
 const isDark = ref(false)
 
@@ -84,20 +86,17 @@ const clientNavItems = [
   { label:'Tableau de bord', route:'dashboard', icon:'LayoutGrid' },
   { label:'Nouveau ticket', route:'tickets.create', icon:'PlusCircle' },
   { label:'Mes tickets', route:'tickets.index', icon:'Ticket' },
-  { label:'Calendrier', route:null, icon:'Calendar' },
 ]
 const techNavItems = [
   { label:'Mes interventions', route:'dashboard', icon:'Wrench' },
   { label:'Tickets assignés', route:'tickets.index', icon:'Ticket' },
-  { label:'Profil SOC', route:'profile.edit', icon:'User' },
-  { label:'Calendrier', route:null, icon:'Calendar' },
+  { label:'Profil SOC', route:'tech.profile', icon:'User' },
 ]
 const adminNavItems = [
   { label:"Vue d'ensemble", route:'dashboard', icon:'Chart' },
   { label:'Gestion tickets', route:'admin.tickets', icon:'Clipboard' },
   { label:'Comptes & accès', route:'admin.users', icon:'Users' },
   { label:'Avis clients', route:'admin.reviews', icon:'Star' },
-  { label:'Calendrier', route:null, icon:'Calendar' },
 ]
 
 const navItems = computed(() => {
@@ -113,7 +112,27 @@ async function fetchNotifCount() {
   try { const r = await fetch('/notifications/count'); const d = await r.json(); notifCount.value = typeof d === 'number' ? d : (d.count||0) } catch {}
 }
 
-function handleClickOutside(e) { if (userMenuRef.value && !userMenuRef.value.contains(e.target)) showingUserMenu.value = false }
+async function fetchNotifList() {
+  try { const r = await fetch('/notifications'); if(r.ok) { const d = await r.json(); notifList.value = d } } catch {}
+}
+
+async function toggleNotif() {
+  showNotif.value = !showNotif.value
+  if (showNotif.value && notifList.value.length === 0) {
+    await fetchNotifList()
+  }
+}
+
+async function markNotifRead(n) {
+  if (!n.read) {
+    try { await fetch(`/notifications/${n.id}/read`, { method: 'POST', headers: {'X-CSRF-TOKEN': (document.querySelector('meta[name=csrf-token]')?.getAttribute('content')) || ''} }); n.read = true; notifCount.value = Math.max(0, notifCount.value - 1) } catch {}
+  }
+}
+
+function handleClickOutside(e) {
+  if (userMenuRef.value && !userMenuRef.value.contains(e.target)) showingUserMenu.value = false
+  if (notifRef.value && !notifRef.value.contains(e.target)) showNotif.value = false
+}
 function handleEscape(e) { if (e.key === 'Escape') { showingUserMenu.value = false; showingNav.value = false } }
 
 onMounted(() => {
@@ -190,13 +209,6 @@ onUnmounted(() => {
 
         <div class="flex-1" />
 
-        <div class="hidden sm:flex items-center gap-2 rounded-xl border px-3 py-2 w-60 focus-within:border-[#2b8ed3] transition-colors" :style="{ background: themeInputBg, borderColor: themeBorder }">
-          <svg class="w-[17px] h-[17px] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 17 17" :style="{ color: themeTextMuted }">
-            <path v-for="(d,i) in iconDefs.Search" :key="i" stroke-linecap="round" stroke-linejoin="round" :d="d"/>
-          </svg>
-          <input v-model="searchQuery" type="text" placeholder="Rechercher ticket, ref…" class="bg-transparent text-sm outline-none w-full leading-normal" :style="{ color: themeText }" />
-        </div>
-
         <!-- Theme toggle -->
         <button @click="toggleTheme" class="p-2 rounded-lg transition-colors" :style="{ color: themeTextMuted }" :title="isDark ? 'Mode clair' : 'Mode sombre'">
           <svg v-if="isDark" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 17 17">
@@ -208,12 +220,25 @@ onUnmounted(() => {
         </button>
 
         <!-- Notifications -->
-        <button @click="router.get(route('notifications.index'))" class="relative p-2 rounded-lg transition-colors" :style="{ color: themeTextMuted }">
-          <svg class="w-[20px] h-[20px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 17 17">
-            <path v-for="(d,i) in iconDefs.Bell" :key="i" stroke-linecap="round" stroke-linejoin="round" :d="d"/>
-          </svg>
-          <span v-if="notifCount>0" class="absolute top-1 right-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#FF9800] text-[10px] font-bold text-white px-1 leading-none">{{ notifCount>99?'99+':notifCount }}</span>
-        </button>
+        <div ref="notifRef" class="relative">
+          <button @click="toggleNotif" class="relative p-2 rounded-lg transition-colors" :style="{ color: themeTextMuted }">
+            <svg class="w-[20px] h-[20px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 17 17">
+              <path v-for="(d,i) in iconDefs.Bell" :key="i" stroke-linecap="round" stroke-linejoin="round" :d="d"/>
+            </svg>
+            <span v-if="notifCount>0" class="absolute top-1 right-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#FF9800] text-[10px] font-bold text-white px-1 leading-none">{{ notifCount>99?'99+':notifCount }}</span>
+          </button>
+          <transition enter-active-class="transition ease-out duration-150" enter-from-class="opacity-0 scale-95" enter-to-class="opacity-100 scale-100" leave-active-class="transition ease-in duration-100" leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
+            <div v-if="showNotif" class="absolute right-0 mt-2 w-[360px] max-h-[420px] overflow-y-auto rounded-xl shadow-2xl py-2 z-50" :style="{ background: themeSidebarBg, border: `1px solid ${themeBorder}`, boxShadow: isDark ? '0 25px 50px rgba(0,0,0,.5)' : '0 10px 40px rgba(0,0,0,.15)' }">
+              <div class="text-[12px] font-semibold px-4 pb-2" :style="{ color: themeTextSecondary }">Notifications</div>
+              <div v-if="notifList.length===0" class="text-[13px] px-4 py-4" :style="{ color: themeTextMuted }">Aucune notification.</div>
+              <div v-for="n in notifList" :key="n.id" @click="markNotifRead(n)" class="px-4 py-3 cursor-pointer transition-colors" :class="n.read ? '' : 'bg-[rgba(46,168,255,0.06)]'" :style="{ borderBottom: `1px solid ${themeBorder}` }">
+                <div class="text-[13px] font-medium" :style="{ color: themeText }">{{ n.title }}</div>
+                <div class="text-[12px] mt-0.5" :style="{ color: themeTextMuted }">{{ n.message }}</div>
+                <div class="text-[10px] mt-1" :style="{ color: themeTextMuted }">{{ n.created_at }}</div>
+              </div>
+            </div>
+          </transition>
+        </div>
 
         <!-- User dropdown -->
         <div ref="userMenuRef" class="relative">

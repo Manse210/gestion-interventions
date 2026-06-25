@@ -76,8 +76,8 @@ const hasActiveFilters = computed(() => {
             <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5">
                 <div>
                     <div class="text-[11px] uppercase tracking-[0.2em] text-[#69b9ff] font-semibold mb-1.5">Tickets</div>
-                    <h2 class="section-title text-[28px] text-[#dcefff] leading-tight">Liste des interventions</h2>
-                    <p class="text-[#7d95b6] text-[13px] mt-1.5 font-medium">{{ props.tickets.length }} ticket(s) trouvé(s)</p>
+                    <h2 class="section-title text-[28px] text-main leading-tight">Liste des interventions</h2>
+                    <p class="text-muted text-[13px] mt-1.5 font-medium">{{ props.tickets.length }} ticket(s) trouvé(s)</p>
                 </div>
                 <Link
                     :href="route('tickets.create')"
@@ -91,7 +91,7 @@ const hasActiveFilters = computed(() => {
             <div class="cyber-card rounded-[20px] p-5">
                 <div class="flex flex-wrap items-center gap-3">
                     <div class="relative flex-1 min-w-[200px] max-w-[320px]">
-                        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-[15px] h-[15px] text-[#556e8c]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-[15px] h-[15px] text-muted" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                         <input
                             v-model="search"
                             type="text"
@@ -122,7 +122,7 @@ const hasActiveFilters = computed(() => {
                 </div>
             </div>
 
-            <div v-if="props.tickets.length === 0" class="text-center py-16 text-[#556e8c] text-[14px]">
+            <div v-if="props.tickets.length === 0" class="text-center py-16 text-muted text-[14px]">
                 Aucun ticket trouvé.
             </div>
 
@@ -137,17 +137,17 @@ const hasActiveFilters = computed(() => {
                         <span class="mono text-[12px] text-[#69b9ff] font-semibold tracking-wider">{{ ticket.ref }}</span>
                         <span :class="priorityBadgeClass(ticket.priorite)">{{ ticket.priorite }}</span>
                     </div>
-                    <h4 class="text-[15px] font-semibold text-[#dcefff] leading-tight mb-2">{{ ticket.titre }}</h4>
-                    <p class="text-[13px] text-[#7d95b6] leading-relaxed line-clamp-2 mb-4">
+                    <h4 class="text-[15px] font-semibold text-main leading-tight mb-2">{{ ticket.titre }}</h4>
+                    <p class="text-[13px] text-muted leading-relaxed line-clamp-2 mb-4">
                         {{ ticket.description }}
                     </p>
-                    <div class="flex flex-wrap items-center gap-3 text-[11px] text-[#556e8c]">
+                    <div class="flex flex-wrap items-center gap-3 text-[11px] text-muted">
                         <span :class="statusBadgeClass(ticket.statut)">{{ ticket.statut }}</span>
-                        <span class="text-[#3d5375]">&bull;</span>
-                        <span class="text-[#dcefff] font-medium">{{ ticket.client?.name || '—' }}</span>
-                        <span class="text-[#3d5375]">&bull;</span>
+                        <span class="text-muted">&bull;</span>
+                        <span class="text-main font-medium">{{ ticket.client?.name || '—' }}</span>
+                        <span class="text-muted">&bull;</span>
                         <span class="text-[#69b9ff]">{{ ticket.technicien?.name || 'Non assigné' }}</span>
-                        <span class="text-[#3d5375]">&bull;</span>
+                        <span class="text-muted">&bull;</span>
                         <span>{{ timeAgo(ticket.created_at) }}</span>
                     </div>
                 </div>

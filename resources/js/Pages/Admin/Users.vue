@@ -60,7 +60,7 @@ function submit() {
     <AppLayout>
         <div class="space-y-7">
             <div class="flex flex-wrap items-center justify-between gap-3">
-                <h2 class="section-title text-[26px] text-[#dde7f6]">Comptes & accès</h2>
+                <h2 class="section-title text-[26px] text-main">Comptes & accès</h2>
                 <button @click="openModal" class="btn-cyber">
                     <svg class="w-[15px] h-[15px] mr-1.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
                     + Créer un compte technicien
@@ -69,9 +69,9 @@ function submit() {
 
             <div class="cyber-card rounded-[20px] overflow-hidden">
                 <div class="overflow-x-auto">
-                    <table class="w-full text-[#dde7f6] text-[13px]">
+                    <table class="w-full text-main text-[13px]">
                         <thead>
-                            <tr class="border-b border-[#1c3b5b] bg-[#0d1e31] text-[11px] uppercase tracking-wider text-[#7f9dbc] font-semibold">
+                            <tr class="border-b border-subtle bg-[#0d1e31] text-[11px] uppercase tracking-wider text-muted font-semibold">
                                 <th class="px-5 py-3 text-left">Utilisateur</th>
                                 <th class="px-5 py-3 text-left">Email</th>
                                 <th class="px-5 py-3 text-left">Rôle</th>
@@ -81,9 +81,9 @@ function submit() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="user in users" :key="user.id" class="border-t border-[#1c3b5b] hover:bg-[#0f2438] transition-colors">
-                                <td class="px-5 py-3.5 font-semibold text-[#dde7f6]">{{ user.name }}</td>
-                                <td class="px-5 py-3.5 text-[#a7bed8]">{{ user.email }}</td>
+                            <tr v-for="user in users" :key="user.id" class="border-t border-subtle hover:bg-[#0f2438] transition-colors">
+                                <td class="px-5 py-3.5 font-semibold text-main">{{ user.name }}</td>
+                                <td class="px-5 py-3.5 text-sub">{{ user.email }}</td>
                                 <td class="px-5 py-3.5">
                                     <span class="chip capitalize" :class="{
                                         'bg-[#1a1030] text-[#b68cff]': user.role === 'admin',
@@ -93,7 +93,7 @@ function submit() {
                                         {{ user.role }}
                                     </span>
                                 </td>
-                                <td class="px-5 py-3.5 text-[#a7bed8]">{{ user.specialite || '—' }}</td>
+                                <td class="px-5 py-3.5 text-sub">{{ user.specialite || '—' }}</td>
                                 <td class="px-5 py-3.5">
                                     <span class="chip" :class="user.actif
                                         ? 'bg-[#0d2b22] text-[#5cffbf]'
@@ -114,7 +114,7 @@ function submit() {
                                 </td>
                             </tr>
                             <tr v-if="users.length === 0">
-                                <td colspan="6" class="px-5 py-12 text-center text-[#556e8c]">Aucun utilisateur.</td>
+                                <td colspan="6" class="px-5 py-12 text-center text-muted">Aucun utilisateur.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -129,7 +129,7 @@ function submit() {
             >
                 <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="closeModal" />
                 <div class="relative cyber-card rounded-[20px] p-6 w-full max-w-md mx-4">
-                    <h4 class="section-title text-[17px] text-[#dde7f6] mb-5">Créer un compte technicien</h4>
+                    <h4 class="section-title text-[17px] text-main mb-5">Créer un compte technicien</h4>
 
                     <div class="space-y-4">
                         <div>
@@ -181,10 +181,10 @@ function submit() {
                         </div>
                     </div>
 
-                    <div class="flex justify-end gap-3 mt-6 pt-4 border-t border-[#1c3b5b]">
+                    <div class="flex justify-end gap-3 mt-6 pt-4 border-t border-subtle">
                         <button
                             @click="closeModal"
-                            class="rounded-xl border border-[#1d3658] bg-transparent text-[#a7bed8] px-5 py-[9px] text-[13px] font-semibold hover:border-[#3d6392] hover:text-[#dde7f6] transition-colors duration-200"
+                            class="rounded-xl border border-subtle bg-transparent text-sub px-5 py-[9px] text-[13px] font-semibold hover:border-[#3d6392] hover:text-main transition-colors duration-200"
                         >
                             Annuler
                         </button>

@@ -174,8 +174,42 @@ Ces deux lignes étaient commentées dans `php.ini` de PHP 8.5.5 (ligne 937 et 9
 ---
 
 ## 📋 Reste à faire
-- [ ] Génération PDF des rapports (Dompdf)
-- [ ] Calendrier des interventions
-- [ ] Pièces jointes (upload files)
-- [ ] Export CSV
-- [ ] Tests
+- [ ] Export CSV (uniformiser sur toutes les pages)
+- [ ] Tests PHPUnit
+- [ ] Notifications email (optionnel)
+
+---
+
+## 🆕 Dernières fonctionnalités ajoutées
+
+### Pièces jointes (upload fichiers)
+- Upload dans le formulaire de création de ticket
+- Stockage dans `storage/app/public/uploads/`
+- Affichage avec bouton Télécharger dans le détail du ticket
+- `php artisan storage:link` configuré
+
+### Génération PDF des rapports
+- Package `barryvdh/laravel-dompdf` installé
+- Route `GET /tickets/{id}/report/download` -> télécharge le PDF
+- Bouton PDF dans l'en-tête du rapport (détail ticket)
+- Template Blade avec en-tête ATECH, infos ticket, travaux, durée, observations, recommandations
+
+### Mode clair/sombre
+- CSS réécrit avec variables CSS (`--bg`, `--text-primary`, etc.)
+- Classes utilitaires : `text-main`, `text-sub`, `text-muted`, `border-subtle`
+- Bouton ☀/🌙 dans le header, préférence en localStorage
+- Mode clair par défaut
+
+### Notifications dropdown
+- Cloche dans le header ouvre un dropdown
+- Notifications chargées en JSON au clic
+- Marquage comme lu au clic sur une notification
+- Compteur de notifications non lues
+
+### Correctifs supplémentaires
+- Statuts Résolu/Fermé : validation PHP corrigée (accents)
+- Gestion tickets admin : expansion des détails par ID (pas par référence objet)
+- Commentaires : toggle interne/public pour tech/admin
+- Assignation : reactivity fixée (Vue 3 ref -> expandedTechId)
+- Calendrier retiré de la sidebar (non implémenté)
+- Barre de recherche retirée du header

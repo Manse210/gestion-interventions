@@ -25,11 +25,11 @@ const submit = () => {
                     ATECH &bull; ONBOARDING
                 </p>
 
-                <h1 class="section-title text-[26px] text-[#dcefff] leading-tight mb-1">
+                <h1 class="section-title text-[26px] text-main leading-tight mb-1">
                     Créer un compte client
                 </h1>
 
-                <p class="text-sm text-[#90aac8] mb-7">
+                <p class="text-sm text-sub mb-7">
                     Rejoignez la plateforme pour suivre vos interventions techniques.
                 </p>
 
@@ -101,7 +101,7 @@ const submit = () => {
                 <p class="mt-5 text-center">
                     <Link
                         :href="route('login')"
-                        class="inline-flex items-center gap-1.5 rounded-xl border border-[#1c3b5b] bg-transparent px-5 py-2.5 text-sm font-semibold text-[#a7bed8] transition-all duration-200 hover:border-[#22425e] hover:text-[#dcefff]"
+                        class="inline-flex items-center gap-1.5 rounded-xl border border-subtle bg-transparent px-5 py-2.5 text-sm font-semibold text-sub transition-all duration-200 hover:border-subtle hover:text-main"
                     >
                         &larr; Retour connexion
                     </Link>

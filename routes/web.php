@@ -34,7 +34,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/tickets/{ticket}/report/create', [TicketController::class, 'createReport'])->middleware('role:technicien,admin')->name('tickets.report.create');
     Route::post('/tickets/{ticket}/report', [ReportController::class, 'store'])->middleware('role:technicien,admin')->name('reports.store');
+    Route::get('/tickets/{ticket}/report/download', [ReportController::class, 'download'])->name('reports.download');
     Route::post('/tickets/{ticket}/evaluate', [EvaluationController::class, 'store'])->middleware('role:client')->name('tickets.evaluations.store');
+
+    Route::get('/tech/profile', [\App\Http\Controllers\TechProfileController::class, 'index'])->middleware('role:technicien')->name('tech.profile');
 
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
     Route::post('/notifications/{notification}/read', [NotificationController::class, 'markRead'])->name('notifications.read');

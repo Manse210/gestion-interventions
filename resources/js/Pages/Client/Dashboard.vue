@@ -73,13 +73,13 @@ function exportCSV() {
             <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5">
                 <div>
                     <div class="text-[11px] uppercase tracking-[0.2em] text-[#69b9ff] font-semibold mb-1.5">Client Portal</div>
-                    <h2 class="section-title text-[28px] text-[#dcefff] leading-tight">Mes interventions ATECH</h2>
-                    <p class="text-[#7d95b6] text-[13px] mt-1.5 font-medium tracking-wide">Suivi temps réel &bull; SOC 24/7</p>
+                    <h2 class="section-title text-[28px] text-main leading-tight">Mes interventions ATECH</h2>
+                    <p class="text-muted text-[13px] mt-1.5 font-medium tracking-wide">Suivi temps réel &bull; SOC 24/7</p>
                 </div>
                 <div class="flex items-center gap-3">
                     <button
                         @click="exportCSV"
-                        class="inline-flex items-center gap-2 rounded-xl border border-[#1d3658] bg-transparent text-[#91a9c6] px-4 py-2.5 text-[13px] font-medium hover:border-[#2ea8ff] hover:text-[#dcefff] transition-colors duration-200"
+                        class="inline-flex items-center gap-2 rounded-xl border border-subtle bg-transparent text-[#91a9c6] px-4 py-2.5 text-[13px] font-medium hover:border-[#2ea8ff] hover:text-main transition-colors duration-200"
                     >
                         <svg class="w-[15px] h-[15px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                         Exporter CSV
@@ -100,7 +100,7 @@ function exportCSV() {
                         <svg class="w-[22px] h-[22px] text-[#5ec8ff]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                     </div>
                     <div>
-                        <div class="text-[11px] uppercase tracking-[0.12em] text-[#7d95b6] font-semibold mb-0.5">Ouverts</div>
+                        <div class="text-[11px] uppercase tracking-[0.12em] text-muted font-semibold mb-0.5">Ouverts</div>
                         <div class="text-[30px] font-['Space_Grotesk'] font-extrabold text-[#5ec8ff] leading-none">{{ props.stats.ouverts }}</div>
                     </div>
                 </div>
@@ -110,7 +110,7 @@ function exportCSV() {
                         <svg class="w-[22px] h-[22px] text-[#ffbe63]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                     </div>
                     <div>
-                        <div class="text-[11px] uppercase tracking-[0.12em] text-[#7d95b6] font-semibold mb-0.5">En cours</div>
+                        <div class="text-[11px] uppercase tracking-[0.12em] text-muted font-semibold mb-0.5">En cours</div>
                         <div class="text-[30px] font-['Space_Grotesk'] font-extrabold text-[#ffbe63] leading-none">{{ props.stats.en_cours }}</div>
                     </div>
                 </div>
@@ -120,7 +120,7 @@ function exportCSV() {
                         <svg class="w-[22px] h-[22px] text-[#42f0b6]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     </div>
                     <div>
-                        <div class="text-[11px] uppercase tracking-[0.12em] text-[#7d95b6] font-semibold mb-0.5">Résolus</div>
+                        <div class="text-[11px] uppercase tracking-[0.12em] text-muted font-semibold mb-0.5">Résolus</div>
                         <div class="text-[30px] font-['Space_Grotesk'] font-extrabold text-[#42f0b6] leading-none">{{ props.stats.resolus }}</div>
                     </div>
                 </div>
@@ -128,7 +128,7 @@ function exportCSV() {
 
             <div class="cyber-card rounded-[20px] p-6">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-5">
-                    <h3 class="section-title text-[18px] text-[#dcefff]">Mes tickets</h3>
+                    <h3 class="section-title text-[18px] text-main">Mes tickets</h3>
                     <div class="flex flex-wrap items-center gap-3">
                         <select
                             v-model="statusFilter"
@@ -147,7 +147,7 @@ function exportCSV() {
                     </div>
                 </div>
 
-                <div v-if="filteredTickets.length === 0" class="text-center py-14 text-[#556e8c] text-[14px]">
+                <div v-if="filteredTickets.length === 0" class="text-center py-14 text-muted text-[14px]">
                     Aucun ticket trouvé.
                 </div>
 
@@ -162,19 +162,19 @@ function exportCSV() {
                             <span class="mono text-[12px] text-[#69b9ff] font-semibold tracking-wider">{{ ticket.ref }}</span>
                             <span :class="priorityBadgeClass(ticket.priorite)">{{ ticket.priorite }}</span>
                         </div>
-                        <h4 class="text-[15px] font-semibold text-[#dcefff] leading-tight mb-2">{{ ticket.titre }}</h4>
-                        <p class="text-[13px] text-[#7d95b6] leading-relaxed line-clamp-2 mb-4">
+                        <h4 class="text-[15px] font-semibold text-main leading-tight mb-2">{{ ticket.titre }}</h4>
+                        <p class="text-[13px] text-muted leading-relaxed line-clamp-2 mb-4">
                             {{ ticket.description }}
                         </p>
-                        <div class="flex flex-wrap items-center gap-3 text-[11px] text-[#556e8c]">
+                        <div class="flex flex-wrap items-center gap-3 text-[11px] text-muted">
                             <span :class="statusBadgeClass(ticket.statut)">{{ ticket.statut }}</span>
-                            <span class="text-[#3d5375]">&bull;</span>
+                            <span class="text-muted">&bull;</span>
                             <span>{{ ticket.categorie }}</span>
-                            <span class="text-[#3d5375]">&bull;</span>
+                            <span class="text-muted">&bull;</span>
                             <span class="text-[#69b9ff]">{{ ticket.technicien?.name || 'Non assigné' }}</span>
-                            <span class="text-[#3d5375]">&bull;</span>
+                            <span class="text-muted">&bull;</span>
                             <span>SLA</span>
-                            <span class="text-[#3d5375]">&bull;</span>
+                            <span class="text-muted">&bull;</span>
                             <span>{{ timeAgo(ticket.created_at) }}</span>
                         </div>
                     </div>
